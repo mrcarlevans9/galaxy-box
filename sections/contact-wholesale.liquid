@@ -8,6 +8,7 @@
               <label for="{{ formId }}-name">{{ 'contact.form.name' | t }}</label>
               <input type="text" id="{{ formId }}-name" name="contact[{{ 'contact.form.name' | t }}]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
             </div>
+          
             <div class="grid__item medium-up--one-half">
               <label for="{{ formId }}-email">{{ 'contact.form.email' | t }} <span aria-hidden="true">*</span></label>
               <input
@@ -33,15 +34,42 @@
               {%- endif -%}
             </div>
           </div>
+          
+           <div class="grid grid--half-gutters">
+            <div class="grid__item medium-up--one-half">
+              <label for="{{ formId }}-buisness-name">Buisness Name</label>
+              <input type="text" id="{{ formId }}-name" name="contact[Buisness Name]" >
+            </div>
+            
 
+           
+            <div class="grid__item medium-up--one-half">
+              <label for="{{ formId }}-website">Website</label>
+              <input type="text" id="{{ formId }}-name" name="contact[Website]]" >
+            </div>
+            </div>
+           
+           {% unless section.settings.buisness-types ==blank %}
+            {% assign buisness-types = section.settings.buisness-types | split:','%}
+            <label for="{{ formId }}-buisness-type">Type of Buisness</label>
+            <select id="{{ formId }}-buisness-type" name="contact[Type of Buisness]">
+             
+             {%- for type in buisness-types %}
+            
+              <option value="{{type}}">{{type}}</option>
+               
+             {%- endfor -%}
+             
+             
+           
+           
+           </select>
+
+           {% endunless %}
+          
           <label for="{{ formId }}-phone">{{ 'contact.form.phone' | t }}</label>
           <input type="tel" id="{{ formId }}-phone" name="contact[{{ 'contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
-          {% if section.settings.isOrdernumberEnabled %}
-           
-           <label for="{{ formId }}-order-number">Order Number</label>
-           <input type="text" id="{{ formId }}-order-number" name="contact[order number]"/>
-            
-          {% endif %}
+         
           <label for="{{ formId }}-message">{{ 'contact.form.message' | t }}</label>
           <textarea rows="10" id="{{ formId }}-message" name="contact[{{ 'contact.form.message' | t }}]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
 
@@ -49,16 +77,16 @@
 
         {% endform %}
       </div>
-
+      
 {% schema %}
     {
         "name": "contact form",
         
         "settings": [
             {
-                "type": "checkbox",
-                "label": "emable order numbers",
-                "id":"isOrdernumberEnabled"
+                "type": "text",
+                "label": "Buisness Types (comma-separated)",
+                "id":"buisness-types"
                 
             }
         ]
