@@ -9765,3 +9765,7 @@ hr {
   max-height: 100vh;
   padding: 1em;
 }
+
+.jdgm-histogram__bar-content {
+  background: #0c007a !important;
+}
